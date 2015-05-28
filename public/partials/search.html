@@ -1,0 +1,91 @@
+<center>
+	<div class="searchBar searchPage">
+		<div id="orangeBG" class="searchPage">
+			<form novalidate>
+
+				<input class="jobSearchForm searchPage" ng-model="query" placeholder="Hitta ett jobb" autofocus="autofocus"></input>
+				<span id="searchBarIcon" class="searchPage"></span>
+				<!-- Loading spinner -->
+				<div ng-show="loading" class="spinner">
+					<div class="spinner-container container1">
+						<div class="circle1"></div>
+						<div class="circle2"></div>
+						<div class="circle3"></div>
+						<div class="circle4"></div>
+					</div>
+					<div class="spinner-container container2">
+						<div class="circle1"></div>
+						<div class="circle2"></div>
+						<div class="circle3"></div>
+						<div class="circle4"></div>
+					</div>
+					<div class="spinner-container container3">
+						<div class="circle1"></div>
+						<div class="circle2"></div>
+						<div class="circle3"></div>
+						<div class="circle4"></div>
+					</div>
+				</div>
+				<button class="searchButton searchPage" ng-click="search(query, false)">SÖK</button>
+
+				<div class="filters">
+					<select class="dropdown searchFilter" ng-options="county.namn for county in counties()" ng-model="selectedCounty" ng-change="updateSearchOptions('lanid', getSelectedID('county'))">
+					</select>
+
+					<select ng-show="countySelected()" class="dropdown searchFilter municipalitySelect" ng-options="municipality.namn for municipality in municipalities()" ng-model="selectedMunicipality" ng-change="updateSearchOptions('kommunid', getSelectedID('municipality'))">
+					</select>
+
+					<select ng-show="linesOfWork" class="dropdown searchFilter linesOfWorkSelect" ng-options="lineOfWork.namn for lineOfWork in linesOfWork()" ng-model="selectedLineOfWork" ng-change="updateSearchOptions('yrkesomradeid', getSelectedID('lineOfWork'))">
+					</select>
+
+					<select ng-show="lineOfWorkSelected()" class="dropdown searchFilter professionSelect" ng-options="profession.namn for profession in professions()" ng-model="selectedProfession" ng-change="updateSearchOptions('yrkesgruppid', getSelectedID('professionGroup'))">
+					</select>
+				</div>
+
+				<div class="filterButtons">
+					<div class="searchButton filterButton searchPage" ng-click="toggleFilter()"> 
+						<p>Filtrera</p> <br/>
+						<span id="filterToggleArrow" class="glyphicon glyphicon-chevron-down"></span>
+					</div>
+					<div class="searchButton resetFilters" ng-click="resetFilters()" ng-show="isAFilterUsed()" title="Återställ alla filter">
+						<span class="glyphicon glyphicon-trash"></span>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+	<br/>
+	<div ng-show="showingResults() || forceShowResults" id="numSearchResults">
+		<h4>Antal sökträffar: {{ antalAnnonser() }}</h4>
+	</div>
+</center>
+
+<div class="jobsContainer">
+	<div ng-repeat="job in jobs()">
+		<a ng-href="#/job" ng-click="addPending(job.annonsid)">
+			<div class="jobBlock">
+				<p>
+					<h4>
+						<small>
+							{{ job.kommunnamn }}
+						</small> 
+						{{ job.arbetsplatsnamn }}
+					</h4>
+					{{ job.annonsrubrik }}
+				</p>
+				<div class="publishDate">
+					Publicerad {{ job.publiceraddatum | date:'yyyy-MM-dd' }}
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+<div class="pageSelector" ng-show="showingResults()">
+	<button class="pageSelectorButton" ng-disabled="isFirstPage()" ng-click="changePage('first')"><span class="glyphicon glyphicon-backward"></span> {{ pageNavButtonText().first }} </button>
+	<button class="pageSelectorButton" ng-disabled="isFirstPage()" ng-click="changePage('previous')"><span class="glyphicon glyphicon-chevron-left"></span> {{ pageNavButtonText().previous }} </button>
+	<span class="viewingPageNumber">{{ pageNavButtonText().infoText }} </span>
+	<button class="pageSelectorButton" ng-disabled="isLastPage()" ng-click="changePage('next')"> {{ pageNavButtonText().next }}  <span class="glyphicon glyphicon-chevron-right"></span></button>
+	<button class="pageSelectorButton" ng-disabled="isLastPage()" ng-click="changePage('last')"> {{ pageNavButtonText().last }}  <span class="glyphicon glyphicon-forward"></span></button>
+</div>
+

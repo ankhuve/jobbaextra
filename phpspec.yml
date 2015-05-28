@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: JobbaExtra
+        psr4_prefix: JobbaExtra
+        src_path: app

@@ -1,0 +1,21 @@
+<div class="container full-width">
+	
+	<center>
+		<div id="splash" class="sideHeader">
+			<h2 id="splashText">Mina sidor</h2>
+			<h3 id="profileUsername">{{ username }}</h3>
+		</div>
+	
+
+		<div class="savedJobs">
+			<center><h3> Sparade jobb </h3></center>
+			<hr style="border:1px solid #FFEEC2; width:80%;">
+			<div ng-hide="hasSavedJobs()">
+				Du har inga sparade jobbannonser
+			</div>
+			<div class="savedJob" ng-repeat="job in savedJobs()">
+				<span ng-click="removeSaved(job.jobID)" class="glyphicon glyphicon-remove removeSavedJob"></span> <a ng-href="#/job" ng-click="addPendingID(job.jobID)">{{ job.jobHeader }}</a>
+			</div>
+		</div>
+	</center>
+</div>

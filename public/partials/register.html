@@ -1,0 +1,52 @@
+<br/>
+<br/>
+<center>
+	<div class="messageBox" ng-show="loggedIn()">
+		<div ng-bind="message()"></div>
+		<div ng-show="loggedIn()">Du är redan inloggad som {{loggedInUser}}. Om du vill registrera en användare måste du logga ut först. <br/>
+		<button class="logoutButton" ng-click="logout()"> Logga ut </button> </div>
+	</div>
+
+	<div class="messageBox" ng-show="loginFailed">
+		<div ng-bind="loginErrorMessage"></div>
+	</div>
+
+	<div class="loginContainer" ng-hide="loggedIn()">
+		<h2 id="loginHeader">Registrera</h2>
+		<form name="registerForm" ng-submit="register(credentials)" novalidate>
+		  	<input class="registerInput" type="email" id="email" ng-model="credentials.email" placeholder="E-post" required>
+		  	<span class="glyphicon glyphicon-ok validFeedback" ng-class="{verifiedInput : validEmail()}"></span>
+
+		  	<input class="registerInput" type="password" id="password" ng-model="credentials.password" placeholder="Lösenord" required><span class="glyphicon glyphicon-ok validFeedback" ng-class="{verifiedInput : sufficientPassword()}"></span>
+
+		  	<input class="registerInput" type="password" id="retypedPassword" ng-model="credentials.retypedPassword" placeholder="Upprepa lösenord" required><span class="glyphicon glyphicon-ok validFeedback" ng-class="{verifiedInput : retypedValid()}"></span>
+
+			<select ng-model="credentials.userType" ng-options="type.displayName for type in userTypes" class="dropdown"></select>
+
+			<input class="registerInput" type="text" id="companyName" ng-model="credentials.userType.companyName" placeholder="Företagsnamn" ng-show="companyType()" required><span class="glyphicon glyphicon-ok validFeedback" ng-class="{verifiedInput : credentials.userType.companyName.length}" ng-show="companyType()"></span>
+
+			<button class="registerInput" id="register" ng-disabled="!validEmail() || !sufficientPassword() || !retypedValid() || !userTypeDataCheck()" type="submit">Registrera {{credentials.userType.displayName | lowercase}}</button>
+			<div class="spinner" id="registerSpinner" ng-show="loading">
+				<div class="spinner-container container1">
+					<div class="circle1"></div>
+					<div class="circle2"></div>
+					<div class="circle3"></div>
+					<div class="circle4"></div>
+				</div>
+				<div class="spinner-container container2">
+					<div class="circle1"></div>
+					<div class="circle2"></div>
+					<div class="circle3"></div>
+					<div class="circle4"></div>
+				</div>
+				<div class="spinner-container container3">
+					<div class="circle1"></div>
+					<div class="circle2"></div>
+					<div class="circle3"></div>
+					<div class="circle4"></div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+</center>

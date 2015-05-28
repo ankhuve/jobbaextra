@@ -1,0 +1,16 @@
+<center>
+	<div class="messageBox" ng-show="hasLoginMessage() || loggedIn()">
+		<div ng-bind="message()"></div>
+		<div ng-show="loggedIn()">Inloggad som {{loggedInUser}}. <button class="logoutButton" ng-click="logout()"> Logga ut </button> </div>
+	</div>
+	<div class="loginContainer" ng-hide="loggedIn()">
+		<h2 id="loginHeader">Logga in </h2>
+		<form name="loginForm" ng-submit="login(credentials)" novalidate>
+			  <input class="loginInput" type="text" id="email" ng-model="credentials.email" placeholder="Email">
+			  <input class="loginInput" type="password" id="password" ng-model="credentials.password" placeholder="Lösenord">
+			  <button class="loginInput" id="loginSubmit" type="submit">Logga in</button>
+		</form>
+		<div class="registerText"> Saknar du användare?<br/>
+		<strong><a ng-href="#/register" ng-click="setUserAsRequested()">Klicka här för att registrera dig</a></strong></div>
+	</div>
+</center>

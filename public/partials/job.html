@@ -1,0 +1,46 @@
+<div class="singleJob">
+	<center>
+		<div ng-show="loading" class="loadingAnimation">
+			<div class="spinner job">
+				<div class="spinner-container job container1">
+					<div class="circle1 lightBlue"></div>
+					<div class="circle2 lightBlue"></div>
+					<div class="circle3 lightBlue"></div>
+					<div class="circle4 lightBlue"></div>
+				</div>
+				<div class="spinner-container job container2">
+					<div class="circle1 lightBlue"></div>
+					<div class="circle2 lightBlue"></div>
+					<div class="circle3 lightBlue"></div>
+					<div class="circle4 lightBlue"></div>
+				</div>
+				<div class="spinner-container job container3">
+					<div class="circle1 lightBlue"></div>
+					<div class="circle2 lightBlue"></div>
+					<div class="circle3 lightBlue"></div>
+					<div class="circle4 lightBlue"></div>
+				</div>
+			</div>
+		</div>
+		<div class="jobButtons" ng-hide="loading">
+			<a ng-href="#/search"><button class="singleJobButton">Tillbaka till sök</button></a>
+			<span ng-show="loggedIn()">
+				<button class="singleJobButton save" ng-click="saveJob(jobMatch.annons.annonsid, jobMatch.annons.annonsrubrik)" ng-hide="jobSaved(jobMatch.annons.annonsid)">Spara annons</button>
+				<button class="singleJobButton removeSaved" ng-show="jobSaved(jobMatch.annons.annonsid)" ng-click="removeSaved(jobMatch.annons.annonsid)"> Ta bort från sparade jobb </button>
+			</span>
+		</div>
+	</center>
+
+	<div class="jobInfo" ng-hide="loading">
+		<center><h2>{{ jobMatch.annons.annonsrubrik }}</h2></center>
+		<p style="white-space: pre-line">{{ jobDescription }}</p>
+		<!-- <p> Antal platser: {{ jobMatch.annons.antalplatserVisa}} </p> -->
+	</div>
+	<div class="moreInfo" ng-hide="loading">
+		<p class="extraJobInfo"> Kommun: {{ jobMatch.annons.kommunnamn}} </p>
+		<p class="extraJobInfo"> Publicerad: {{ jobPublished}} </p>
+		<p class="extraJobInfo"> Dagar sedan publicering: {{ daysSincePublish }}
+		<div>{{ jobMatch.ansokan.epostadress }}</div>
+		<div class="extraJobInfo">Sista ansökningsdag {{ jobMatch.ansokan.sista_ansokningsdag | date:'yyyy-MM-dd' }}</div>
+	</div>
+</div>
